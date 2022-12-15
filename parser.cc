@@ -53,6 +53,7 @@ int main()
     return 0;
 }
 
+// 递归式的把每个html文件名带路径，保存到files_list
 bool EnumFile(const std::string& src_path, std::vector<std::string>* files_list)
 {
     namespace fs = boost::filesystem; // boost库命名空间
@@ -90,6 +91,7 @@ void showDoc(DocInfo_t doc)
     std::cout << "url: " << doc.url << std::endl;
 }
 
+// 按照files_list读取每个文件内容进行解析
 bool ParseHtml(const std::vector<std::string>& files_list, std::vector<DocInfo_t>* results)
 {
     for (const std::string &file : files_list) {
@@ -118,6 +120,7 @@ bool ParseHtml(const std::vector<std::string>& files_list, std::vector<DocInfo_t
     return true;
 }
 
+// 解析文档标题
 static bool ParseTitle(const std::string &file, std::string *title)
 {
     size_t begin = file.find("<title>");
@@ -137,6 +140,7 @@ static bool ParseTitle(const std::string &file, std::string *title)
     return true;
 }
 
+// 解析文档内容
 static bool ParseContent(const std::string &file, std::string *Content)
 {
     enum status{
@@ -164,6 +168,7 @@ static bool ParseContent(const std::string &file, std::string *Content)
     return true;
 }
 
+// 解析url
 static bool ParseUrl(const std::string &file, std::string *url)
 {
     std::string url_head = "https://www.boost.org/doc/libs/1_80_0/doc/html";
